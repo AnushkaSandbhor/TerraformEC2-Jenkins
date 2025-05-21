@@ -30,9 +30,8 @@ pipeline {
         }
         stage('Terraform Apply') {
             steps {
-                input "Approve to apply changes?"
                 withCredentials([usernamePassword(credentialsId: 'AWS_CREDENTIALS', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
-                    sh 'terraform apply tfplan'
+                    sh 'terraform apply -auto-approve tfplan'
                 }
             }
         }
