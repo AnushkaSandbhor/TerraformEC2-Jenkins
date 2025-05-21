@@ -7,9 +7,10 @@ pipeline {
 
     stages {
         stage('Checkout Code') {
-            steps {
-                git 'https://github.com/AnushkaSandbhor/TerraformEC2-Jenkins.git'
-            }
+            steps {
+                git branch: 'main', url: 'https://github.com/AnushkaSandbhor/TerraformEC2-Jenkins.git'
+                }
+        }
         }
 
         stage('Terraform Init') {
