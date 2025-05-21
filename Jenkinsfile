@@ -1,18 +1,14 @@
 pipeline {
     agent any
-
     environment {
-        AWS_REGION = 'us-east-1' // Change to your region
+        AWS_REGION = 'us-east-1'
     }
-
     stages {
         stage('Checkout Code') {
-            steps {
-                git branch: 'main', url: 'https://github.com/AnushkaSandbhor/TerraformEC2-Jenkins.git'
-                }
+            steps {
+                git branch: 'main', url: 'https://github.com/AnushkaSandbhor/TerraformEC2-Jenkins.git'
+            }
         }
-        }
-
         stage('Terraform Init') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'AWS_CREDENTIALS', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
@@ -20,13 +16,11 @@ pipeline {
                 }
             }
         }
-
         stage('Terraform Validate') {
             steps {
                 sh 'terraform validate'
             }
         }
-
         stage('Terraform Plan') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'AWS_CREDENTIALS', usernameVariable: 'AWS_ACCESS_KEY_ID', passwordVariable: 'AWS_SECRET_ACCESS_KEY')]) {
@@ -34,7 +28,6 @@ pipeline {
                 }
             }
         }
-
         stage('Terraform Apply') {
             steps {
                 input "Approve to apply changes?"
